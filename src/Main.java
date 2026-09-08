@@ -25,7 +25,7 @@ void main() throws Exception {
                 L1.inserirNoInicio(gen);
                 break;
             case 2:
-                // L1.inserirNoMeio(gen, );
+                L1.inserirNoMeio(gen, (int) Math.ceil(qtde/2));
                 break;
             case 3:
                 L1.inserirNoFim(gen);
