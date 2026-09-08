@@ -6,6 +6,22 @@ public class ListaSimples {
         cabeca = null;
     }
 
+    public String exibir(){
+        String msg = "[";
+        No prox = cabeca;
+        while(prox != null){
+            msg += prox.getDado();
+            if(prox.getProximo() != null){
+                msg += ", ";
+            } else {
+                msg += "]";
+            }
+            prox = prox.getProximo();
+        }
+
+        return msg;
+    }
+
     public void inserirNoInicio(int dado) {
         No novo = new No(dado);
 
