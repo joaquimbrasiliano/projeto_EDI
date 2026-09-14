@@ -8,11 +8,11 @@ public class Deque extends ListaSimples {
         inserirNoFim(dado);
     }
 
-    public void removerInicio() {
-        removerNoInicio();
+    public Integer removerInicio() {
+        return removerNoInicio();
     }
 
-    public void removerFim() {
-        removerNoFim();
+    public Integer removerFim() {
+        return removerNoFim();
     }
 }

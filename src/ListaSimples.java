@@ -6,20 +6,29 @@ public class ListaSimples {
         cabeca = null;
     }
 
-    public String exibir(){
-        String msg = "[";
-        No prox = cabeca;
-        while(prox != null){
-            msg += prox.getDado();
-            if(prox.getProximo() != null){
-                msg += ", ";
-            } else {
-                msg += "]";
+    public String exibir() {
+        StringBuilder mensagem = new StringBuilder("[");
+        No atual = cabeca;
+        while (atual != null) {
+            mensagem.append(atual.getDado());
+            if (atual.getProximo() != null) {
+                mensagem.append(", ");
             }
-            prox = prox.getProximo();
+            atual = atual.getProximo();
         }
+        return mensagem.append("]").toString();
+    }
 
-        return msg;
+    public No getCabeca() {
+        return cabeca;
+    }
+
+    public int tamanho() {
+        int quantidade = 0;
+        for (No atual = cabeca; atual != null; atual = atual.getProximo()) {
+            quantidade++;
+        }
+        return quantidade;
     }
 
     public void inserirNoInicio(int dado) {
@@ -68,20 +77,24 @@ public class ListaSimples {
         atual.setProximo(novo);
     }
 
-    public void removerNoInicio() {
-        if (cabeca != null) {
-            cabeca = cabeca.getProximo();
+
+    public Integer removerNoInicio() {
+        if (cabeca == null) {
+            return null;
         }
+        No removido = cabeca;
+        cabeca = removido.getProximo();
+        removido.setProximo(null);
+        return removido.getDado();
     }
 
-    public void removerNoFim() {
+    public Integer removerNoFim() {
         if (cabeca == null) {
-            return;
+            return null;
         }
 
         if (cabeca.getProximo() == null) {
-            cabeca = null;
-            return;
+            return removerNoInicio();
         }
 
         No atual = cabeca;
@@ -90,17 +103,18 @@ public class ListaSimples {
             atual = atual.getProximo();
         }
 
+        int removido = atual.getProximo().getDado();
         atual.setProximo(null);
+        return removido;
     }
 
-    public void removerNoMeio(int posicao) {
+    public Integer removerNoMeio(int posicao) {
         if (cabeca == null) {
-            return;
+            return null;
         }
 
         if (posicao <= 0) {
-            removerNoInicio();
-            return;
+            return removerNoInicio();
         }
 
         No atual = cabeca;
@@ -114,9 +128,11 @@ public class ListaSimples {
         }
 
         if (atual.getProximo() != null) {
-            atual.setProximo(
-                atual.getProximo().getProximo()
-            );
+            No removido = atual.getProximo();
+            atual.setProximo(removido.getProximo());
+            removido.setProximo(null);
+            return removido.getDado();
         }
+        return null;
     }
 }

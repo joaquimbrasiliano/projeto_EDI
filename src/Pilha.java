@@ -4,7 +4,7 @@ public class Pilha extends ListaSimples {
         inserirNoInicio(dado);
     }
 
-    public void pop() {
-        removerNoInicio();
+    public Integer pop() {
+        return removerNoInicio();
     }
 }

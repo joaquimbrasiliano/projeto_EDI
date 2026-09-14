@@ -4,7 +4,7 @@ public class Fila extends ListaSimples {
         inserirNoFim(dado);
     }
 
-    public void remover() {
-        removerNoInicio();
+    public Integer remover() {
+        return removerNoInicio();
     }
 }
