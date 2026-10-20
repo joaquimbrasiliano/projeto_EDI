@@ -2,11 +2,13 @@ public class NoDuplo {
     private int dado;
     private NoDuplo prox;
     private NoDuplo ant;
+    private int chave;
 
     public NoDuplo(int valor) {
         this.dado = valor;
         this.prox = null;
         this.ant = null;
+        this.chave = 0;
     }
 
     public int getDado() {
@@ -18,6 +20,7 @@ public class NoDuplo {
     public NoDuplo getAnt() {
         return ant;
     }
+    public int getChave(){return chave;};
 
     public void setDado(int dado) {
         this.dado = dado;
@@ -27,5 +30,8 @@ public class NoDuplo {
     }
     public void setAnt(NoDuplo ant) {
         this.ant = ant;
+    }
+    public void setChave(int chave) {
+        this.chave = chave;
     }
 }
