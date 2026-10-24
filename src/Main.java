@@ -4,6 +4,36 @@ import java.util.StringJoiner;
 
 private static final int QUANTIDADE_ELEMENTOS = 20;
 
+void combinacaoMesclar(ListaDupla[] listas){
+
+    ListaDupla listaParaMesclar = new ListaDupla();
+
+    Random random = new Random();
+    int n = random.nextInt(5) + 1;
+
+    for (int i = 0; i < n; i++) {
+        int numeroAleatorio = random.nextInt(100) + 1;
+        listaParaMesclar.inserirNoFim(numeroAleatorio);
+    }
+    System.out.printf("Lista Que Sera Mesclada: %s%n", listaParaMesclar);
+
+    random = new Random();
+    int numeroLista = 1;
+    for (ListaDupla lista : listas) {
+        n = random.nextInt(5) + 1;
+        for (int i = 0; i < n; i++) {
+            int numeroAleatorio = random.nextInt(100) + 1;
+            lista.inserirNoFim(numeroAleatorio);
+        }
+        System.out.printf("Lista %d: %s%n", numeroLista, lista);
+        numeroLista += 1;
+    }
+
+    listaParaMesclar.mesclarListas(listas);
+    System.out.printf("Lista Final Mesclada: %s%n", listaParaMesclar);
+
+}
+
 Integer lerPosicao(Scanner scanner, int numero) {
     while (true) {
         System.out.printf(
@@ -129,55 +159,8 @@ void trocarPrimeiroComUltimo(ListaSimples lista) {
 }
 
 void main() {
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
-    ListaSimples l1 = new ListaSimples();
-    ListaSimples l2 = new ListaSimples();
-    Pilha pilha = new Pilha();
-    Fila fila = new Fila();
-    Deque deque = new Deque();
 
-    System.out.println("1. Inserção de 20 inteiros aleatórios de 0 a 100 em L1");
-    for (int i = 0; i < QUANTIDADE_ELEMENTOS; i++) {
-        int numero = random.nextInt(101);
-        Integer opcao = lerPosicao(scanner, numero);
-        if (opcao == null) {
-            System.out.println("\nEntrada encerrada antes de completar os 20 elementos.");
-            System.out.println("L1 parcial: " + l1.exibir());
-            return;
-        }
-        inserirNaPosicaoEscolhida(l1, numero, opcao);
-    }
-    System.out.println("\nL1 original: " + l1.exibir());
+    ListaDupla[] listasParaMesclar = {new ListaDupla(), new ListaDupla(), new ListaDupla()};
+    combinacaoMesclar(listasParaMesclar);
 
-    copiar(l1, l2);
-    System.out.println("2. L2: " + l2.exibir());
-
-    moverParesParaPilha(l1, pilha);
-    System.out.println("3. L1 sem os pares: " + l1.exibir());
-    System.out.println("Pilha: " + pilha.exibir());
-
-    ordenarBubbleSort(l2);
-    System.out.println("4. L2 crescente: " + l2.exibir());
-
-    System.out.println("5. Múltiplos de 3 em L1: " + consultarMultiplosDeTres(l1));
-
-    inverterComPilha(l2);
-    System.out.println("6. L2 invertida com pilha auxiliar: " + l2.exibir());
-
-    transferirPilhaParaFila(pilha, fila);
-    System.out.println("7. F após retirar os elementos de P: " + fila.exibir());
-
-    preencherDeque(l2, deque);
-    System.out.println("8. D preenchido: " + deque.exibir());
-
-    trocarPrimeiroComUltimo(l1);
-    System.out.println("9. L1 com os valores trocados: " + l1.exibir());
-
-    System.out.println("\n10. Estado final das estruturas");
-    System.out.println("L1: " + l1.exibir());
-    System.out.println("L2: " + l2.exibir());
-    System.out.println("P: " + pilha.exibir());
-    System.out.println("F: " + fila.exibir());
-    System.out.println("D: " + deque.exibir());
 }
