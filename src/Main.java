@@ -157,10 +157,101 @@ void trocarPrimeiroComUltimo(ListaSimples lista) {
     primeiro.setDado(ultimo.getDado());
     ultimo.setDado(auxiliar);
 }
+ListaDupla gerarListaOrdenada(int quantidade, Random random) {
+    ListaDupla lista = new ListaDupla();
+    int valor = 0;
+    for (int i = 0; i < quantidade; i++) {
+        valor += random.nextInt(3) + 1;
+        lista.inserirNoFim(valor);
+    }
+    return lista;
+}
+
+void combinacaoIntersecao() {
+    Random random = new Random();
+    ListaDupla listaA = new ListaDupla();
+    ListaDupla listaB = new ListaDupla();
+
+    for (int i = 0; i < 6; i++) {
+        listaA.inserirNoFim(random.nextInt(15) + 1);
+        listaB.inserirNoFim(random.nextInt(15) + 1);
+    }
+
+    System.out.printf("Lista A: %s%n", listaA);
+    System.out.printf("Lista B: %s%n", listaB);
+    System.out.printf("Interseção: %s%n", listaA.intersecao(listaB));
+}
+
+void combinacaoBalanceLine() {
+    Random random = new Random();
+    ListaDupla listaA = gerarListaOrdenada(random.nextInt(5) + 4, random);
+    ListaDupla listaB = gerarListaOrdenada(random.nextInt(5) + 4, random);
+
+    System.out.printf("Lista A (ordenada): %s%n", listaA);
+    System.out.printf("Lista B (ordenada): %s%n", listaB);
+    System.out.println("Balance-line:");
+    System.out.print(listaA.balanceLine(listaB));
+}
+
+void combinacaoInsercaoOrdenada() {
+    Random random = new Random();
+    ListaDupla lista = new ListaDupla();
+
+    for (int i = 0; i < 8; i++) {
+        int valor = random.nextInt(100) + 1;
+        int chave = random.nextInt(100) + 1;
+
+        lista.inserirOrdenado(valor, chave);
+        System.out.printf(
+                "Inserindo valor %d com chave %d%n", valor, chave
+        );
+    }
+
+    System.out.println("Lista ordenada por chave:");
+
+    for (NoDuplo atual = lista.getCabeca();
+         atual != null;
+         atual = atual.getProx()) {
+        System.out.printf(
+                "[Valor: %d, Chave: %d] ",
+                atual.getDado(), atual.getChave()
+        );
+    }
+    System.out.println();
+}
+
+void combinacaoParticao() {
+    Random random = new Random();
+    ListaDupla lista = new ListaDupla();
+
+    for (int i = 0; i < 9; i++) {
+        lista.inserirNoFim(random.nextInt(100) + 1);
+    }
+
+    System.out.println("Lista original: " + lista);
+
+    ListaDupla[] partes = lista.particionar();
+
+    System.out.println("Primeira lista: " + partes[0]);
+    System.out.println("Segunda lista: " + partes[1]);
+}
 
 void main() {
 
+
+    System.out.println("\n--- Inserção Ordenada ---");
+    combinacaoInsercaoOrdenada();
+
+    System.out.println("\n--- Partição de Lista ---");
+    combinacaoParticao();
+
     ListaDupla[] listasParaMesclar = {new ListaDupla(), new ListaDupla(), new ListaDupla()};
     combinacaoMesclar(listasParaMesclar);
+
+    System.out.println("\n--- Interseção ---");
+    combinacaoIntersecao();
+
+    System.out.println("\n--- Balance-line ---");
+    combinacaoBalanceLine();
 
 }
