@@ -236,8 +236,50 @@ void combinacaoParticao() {
     System.out.println("Segunda lista: " + partes[1]);
 }
 
-void main() {
+void combinacaoInversao() {
+    Random random = new Random();
+    ListaDupla lista = new ListaDupla();
 
+    for (int i = 0; i < 8; i++) {
+        lista.inserirNoFim(random.nextInt(100) + 1);
+    }
+
+    System.out.println("Lista original: " + lista);
+    lista.inverterComPilha();
+    System.out.println("Lista invertida: " + lista);
+}
+
+boolean estaBalanceada(String expressao) {
+    Pilha pilha = new Pilha();
+
+    for (char c : expressao.toCharArray()) {
+        if (c == '(') {
+            pilha.push(c);
+        } else if (c == ')') {
+            if (pilha.pop() == null) {
+                return false;
+            }
+        }
+    }
+    return pilha.pop() == null;
+}
+
+void combinacaoParenteses() {
+    String[] expressoes = {
+            "(a + b) * (c - d)",
+            "((a + b) * c) - d",
+            "((a + b)",
+            "(a + b))",
+            ")a + b("
+    };
+
+    for (String expressao : expressoes) {
+        System.out.printf("%-22s -> %s%n", expressao,
+                estaBalanceada(expressao) ? "balanceada" : "não balanceada");
+    }
+}
+
+void main() {
 
     System.out.println("\n--- Inserção Ordenada ---");
     combinacaoInsercaoOrdenada();
@@ -254,4 +296,9 @@ void main() {
     System.out.println("\n--- Balance-line ---");
     combinacaoBalanceLine();
 
+    System.out.println("\n--- Inversão com Pilha ---");
+    combinacaoInversao();
+
+    System.out.println("\n--- Balanceamento de Parênteses ---");
+    combinacaoParenteses();
 }
