@@ -246,6 +246,19 @@ public class ListaDupla {
         return new ListaDupla[]{listaA, listaB};
     }
 
+    void inverterComPilha() {
+        Pilha pilha = new Pilha();
+        Integer valor;
+
+        while ((valor = this.removerNoInicio()) != null) {
+            pilha.push(valor);
+        }
+
+        while ((valor = pilha.pop()) != null) {
+            this.inserirNoFim(valor);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
