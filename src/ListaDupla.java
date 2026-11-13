@@ -75,6 +75,41 @@ public class ListaDupla<T, K> {
         ant.setProximo(novo);
         atual.setAnterior(novo);
     }
+    // Busca o nó (sub-lista) de uma respectiva letra do alfabeto
+    public No<T, K> buscar(T dado) {
+        No<T, K> atual = this.cabeca;
+
+        while (atual != null) {
+            if (atual.getDado().equals(dado)) {
+                return atual;
+            }
+            atual = atual.getProximo();
+        }
+
+        return null;
+    }
+
+    // Lista nomes e idades das pessoas cadastradas na sub-lista
+    public String listar() {
+        if (ehVazia()) {
+            return "(lista vazia)";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        No<T, K> atual = this.cabeca;
+
+        while (atual != null) {
+            sb.append(atual.getDado())
+                    .append(" - ")
+                    .append(atual.getChave())
+                    .append("\n");
+            atual = atual.getProximo();
+        }
+
+        return sb.toString();
+    }
+
+
 
     @Override
     public String toString() {

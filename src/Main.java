@@ -21,6 +21,9 @@ void main() {
     nomes.put("Fernanda", 12);
     nomes.put("Joana", 33);
 
+    // Permite comparação com caracteres UTF-8 para ordenar
+    Collator collator = Collator.getInstance(Locale.of("pt", "BR"));
+
     // Percorre os nomes e realiza as inserções
     for (Map.Entry<String, Integer> pessoa : nomes.entrySet()) {
 
@@ -42,17 +45,38 @@ void main() {
             caracteres.put(inicial, listaInterna);
 
             // Insere o novo grupo na lista externa
-            lista.inserirCabeca(
-                    new No<>(inicial, listaInterna)
+            lista.inserirOrdenado(
+                    new No<>(inicial, listaInterna),
+                    Comparator.naturalOrder()
             );
         }
 
         // Insere o nome e a idade na lista interna
-        listaInterna.inserirCabeca(
-                new No<>(nome, idade)
+        listaInterna.inserirOrdenado(
+                new No<>(nome, idade),
+                collator::compare
         );
     }
 
     // Exibe toda a estrutura
     System.out.println(lista);
+
+    Scanner scanner = new Scanner(System.in);
+
+    // Lê a letra escolhida pelo usuário
+    System.out.print("\nDigite a letra da lista que deseja imprimir: ");
+    String entrada = scanner.nextLine().trim();
+    // Converte a letra sempre para maiúscula
+    char letra = Character.toUpperCase(entrada.charAt(0));
+
+    // Busca o nó da lista externa correspondente à letra escolhida
+    No<Character, ListaDupla<String, Integer>> noLetra = lista.buscar(letra);
+
+    // Impressão dos nomes e idades da sub-lista
+    if (noLetra == null) {
+        System.out.println("Não há nomes cadastrados com a letra " + letra + ".");
+    } else {
+        System.out.println("\nNomes com a letra " + letra + ":");
+        System.out.print(noLetra.getChave().listar());
+    }
 }
