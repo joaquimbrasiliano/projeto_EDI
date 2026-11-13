@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class ListaDupla<T, K> {
 
     private No<T, K> cabeca;
@@ -38,6 +40,40 @@ public class ListaDupla<T, K> {
 
             this.cabeca = no;
         }
+    }
+
+    public void inserirOrdenado(No<T, K> novo, Comparator<T> comparador) {
+        if (ehVazia()) {
+            novo.setAnterior(null);
+            novo.setProximo(null);
+            this.cabeca = novo;
+            this.cauda = novo;
+            return;
+        }
+
+        if (comparador.compare(novo.getDado(), this.cabeca.getDado()) < 0) {
+            inserirCabeca(novo);
+            return;
+        }
+
+        if (comparador.compare(novo.getDado(), this.cauda.getDado()) >= 0) {
+            novo.setAnterior(this.cauda);
+            novo.setProximo(null);
+            this.cauda.setProximo(novo);
+            this.cauda = novo;
+            return;
+        }
+
+        No<T, K> atual = this.cabeca.getProximo();
+        while (comparador.compare(novo.getDado(), atual.getDado()) >= 0) {
+            atual = atual.getProximo();
+        }
+
+        No<T, K> ant = atual.getAnterior();
+        novo.setAnterior(ant);
+        novo.setProximo(atual);
+        ant.setProximo(novo);
+        atual.setAnterior(novo);
     }
 
     @Override
